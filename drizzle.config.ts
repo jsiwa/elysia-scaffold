@@ -5,4 +5,8 @@ export default defineConfig({
   out: './db/migrations',
   verbose: true,
   strict: true,
+  driver: 'libsql',
+  dbCredentials: {
+    url: process.env.DRIZZLE_URL!
+  },
 })

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>user</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <input type="text" placeholder="name" id="J_LoginName">
+  <input type="password" placeholder="password" id="J_LoginPassword">
+  <button id="J_LoginHandle">Login</button>
+<script>
+  const loginHandle = document.querySelector('#J_LoginHandle')
+  async function login(username) {
+    const url = `/login/${encodeURIComponent(username)}`;
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+      })
+
+      const data = await res.json()
+      if (res.status === 401) {
+        alert(data.error)
+      } else {
+        alert(data.msg)
+        location.href = '/'
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  }
+
+  loginHandle.onclick = () => {
+    const name = document.querySelector('#J_LoginName').value
+    const password = document.querySelector('#J_LoginPassword').value
+    login(name)
+  }
+</script>
+  <h2>Register</h2>
+  <input type="text" placeholder="name" id="J_RegisterName">
+  <input type="password" placeholder="password" id="J_RegisterPassword">
+  <button id="J_RegisterHandle">Register</button>
+
+<script>
+  const registerHandle = document.querySelector('#J_RegisterHandle')
+  async function register(username) {
+    const url = `/register/${encodeURIComponent(username)}`;
+    try {
+      const res = await fetch(url, {
+        method: 'PUT',
+        credentials: 'include',
+      })
+
+      const data = await res.json()
+      if (res.status === 401) {
+        alert(data.error)
+      } else {
+        alert(data.msg)
+        location.href = '/'
+      }
+    } catch (error) {
+      console.error("Register failed:", error);
+    }
+  }
+
+  registerHandle.onclick = () => {
+    const name = document.querySelector('#J_RegisterName').value
+    const password = document.querySelector('#J_RegisterPassword').value
+    register(name)
+  }
+</script>
+</body>
+</html>

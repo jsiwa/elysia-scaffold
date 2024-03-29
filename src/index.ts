@@ -1,11 +1,10 @@
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
 import { html } from '@elysiajs/html'
-import { authPlugin } from './auth'
+import { UserController } from './auth'
 import { staticPlugin } from '@elysiajs/static'
 import { swagger } from '@elysiajs/swagger'
 import { dbPlugin } from '../db'
-import { users } from '../db/schemas/users'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -21,13 +20,15 @@ const app = new Elysia()
   }))
   .use(html())
   .use(dbPlugin)
-  .use(authPlugin)
+  .use(UserController)
   .state({
     title: packageJson.name as string,
     version: packageJson.version as string
   })
-  .get('/', ({ store: { title, version } }) => `Title: ${title}, Version: ${version}`)
-  .get('/test', ( { db } ) => db.select().from(users).all())
+  .get('/', ({ Auth }) => {
+    if (!Auth.user) return Bun.file('public/user.html')
+    return Bun.file('public/home.html')
+  })
   .listen(process.env.PORT ?? 3000)
 
 console.log(

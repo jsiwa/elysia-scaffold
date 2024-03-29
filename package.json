@@ -5,9 +5,7 @@
     "----RUN": "",
     "dev": "bun run --watch src/index.ts",
     "----BUILD": "",
-
     "----CHECK": "",
-
     "----DATABASE": "",
     "db:drop": "drizzle-kit drop",
     "db:generate": "drizzle-kit generate:sqlite",
