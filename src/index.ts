@@ -13,7 +13,7 @@ const packageJson = await Bun.file('package.json').json()
 const app = new Elysia()
   .use(swagger())
   .use(cors({
-    origin: isDev ? 'localhost' : /.*\.saltyaom\.com$/
+    origin: isDev ? 'localhost' : /.*\.example\.com$/
   }))
   .use(staticPlugin({
     prefix: '/'
