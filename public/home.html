@@ -7,5 +7,18 @@
 </head>
 <body>
   <h1>Home</h1>
+  <button id="J_Logout">Log out</button>
+  <script>
+    document.querySelector('#J_Logout').onclick = async() => {
+      const res = await fetch('/logout')
+      const o = await res.json()
+      if (res.status === 401) {
+        alert(o.error)
+      } else {
+        alert(o.msg)
+        location.href = '/'
+      }
+    }
+  </script>
 </body>
 </html>

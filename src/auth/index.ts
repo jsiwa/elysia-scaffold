@@ -97,6 +97,12 @@ export const SignService = new Elysia({ name: 'Service.Sign' })
       msg: `Success logined. User name: ${user.name}`
     }
   })
+  .get('/logout', ({ cookie: { auth } }) => {
+    auth.remove()
+    return {
+      msg: 'Success logout.'
+    }
+  })
 
 export const UserController = new Elysia()
   .use(SignService)
